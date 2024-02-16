@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+
+	<!-- 동적쿼리  -->
+	<sql id="dynamicCondition">
+	   <where>
+	      <if test="!(searchGubun == '' or searchText == '')">
+	         AND #{searchGubun} like '%'||#{searchText}||'%'
+	       </if>
+	   </where>
+	</sql>
+	
+	
+	
+	<!-- 리스트 조회 -->
+	<select id="selectList" parameterType="Map" resultType="NoticeVo">
+		SELECT A.* 
+		FROM(SELECT   
+		        ROWNUM AS RNUM
+		        , B.*
+		     FROM( SELECT 
+		                  A.NOTICE_NO
+		                , A.ADMIN_ID
+		                , A.NOTICE_TITLE
+		                , A.NOTICE_CONTENT
+		                , A.NOTICE_DATE
+		                , A.NOTICE_HITS
+		           FROM NOTICE A
+		           INNER JOIN ADMIN B ON A.ADMIN_ID = B.ADMIN_ID
+		           WHERE 1=1
+		           <include refid="dynamicCondition"/>
+		           AND A.NOTICE_DEL = 'N'
+		           ORDER BY A.NOTICE_NO DESC ) B
+		     <![CDATA[ 
+		     WHERE ROWNUM <= #{endIndex}
+		) A
+		WHERE A.RNUM >= #{startIndex}
+		]]>
+	</select>
+	
+	
+	<!-- 게시글 count 조회 -->
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(NOTICE_NO) AS TOTALCOUNT
+		FROM NOTICE
+		WHERE 1=1
+		<include refid="dynamicCondition"/>
+	</select>
+	
+	
+	
+	<!-- 글작성 -->
+	<insert id="insertNotice" parameterType="NoticeVo">
+		INSERT INTO NOTICE(
+		      NOTICE_NO
+		    , ADMIN_ID
+		    , NOTICE_TITLE
+		    , NOTICE_CONTENT
+		    , NOTICE_DATE
+		    , NOTICE_HITS
+		    , NOTICE_DEL
+		) VALUES (
+		      NOTICE_SEQ.NEXTVAL
+		    , #{admin_id}
+		    , #{notice_title}
+		    , #{notice_content}
+		    , SYSDATE
+		    , 0
+		    , 'N'
+		)
+	</insert>
+	
+	
+	
+	<!-- 글수정 -->
+	<update id="updateNotice" parameterType="NoticeVo">
+		UPDATE NOTICE SET
+		      NOTICE_TITLE = #{}
+		    , NOTICE_CONTENT = #{}
+		WHERE 1=1
+		AND NOTICE_NO = #{}
+	</update>
+	
+	
+	
+	<!--  -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- MyBatis의 환경 설정 파일 -->
 <!DOCTYPE configuration PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <!-- 연결할 DB정보를 갖고 있는 properties파일 지정하기 -->
 <!--    JDBCTest/src/main/resources/config/dbinfo.properties-->
@@ -18,9 +18,35 @@
            긴 전체 이름 대신 짧은 이름으로 대체해서 사용하고자 할 때 설정한다.
            형식) <typeAliases type="패키지명까지 포함된 전체 이름" alias="alias명"/>
            -->
-	<typeAlias type="vo.qna.AskVo" alias="AskVo"/>
-	<typeAlias type="vo.common.PageVo" alias="PageVo"/>
+		<!-- 모임관련 VO 등록 -->
+        <typeAlias type="vo.moim.MoimVo" alias="MoimVo"/>
+        <typeAlias type="vo.moim.AgeVo" alias="AgeVo"/>
+        <typeAlias type="vo.moim.AreaVo" alias="AreaVo"/>
+        <typeAlias type="vo.moim.MoimUserVo" alias="MoimUserVo"/>
+        <typeAlias type="vo.moim.EntryVo" alias="EntryVo"/>
+        <typeAlias type="vo.moim.MoimReportVo" alias="MoimReportVo"/>
+        <typeAlias type="vo.moim.MoimBoardReplyVo" alias="MoimBoardReplyVo"/>
+        <typeAlias type="vo.moim.MoimBoardImgVo" alias="MoimBoardImgVo"/>
+        <typeAlias type="vo.moim.MoimBoardVo" alias="MoimBoardVo"/>
+        <typeAlias type="vo.moim.MoimCalVo" alias="MoimCalVo"/>
         
+        <!-- 문의게시판 관련 VO 등록 -->
+		<typeAlias type="vo.qna.AskVo" alias="AskVo"/>
+		<typeAlias type="vo.qna.AskReplyVo" alias="AskReplyVo"/>
+		<typeAlias type="vo.common.PageVo" alias="PageVo"/>
+		
+		<!-- 게시판 관련 VO 등록 -->
+        <typeAlias type="vo.board.BoardVO" alias="boardVo"/>
+        <typeAlias type="vo.board.Board_ReplyVO" alias="board_ReplyVo"/>
+        <typeAlias type="vo.board.Board_ImgVO" alias="board_ImgVo"/>
+        <typeAlias type="vo.board.Board_ReportVO" alias="board_ReportVo"/>
+        
+        <!-- 파일관련 VO 등록 -->
+        <typeAlias type="vo.file.FileVo" alias="FileVo"/>
+        
+        <!-- 회원관련 VO 등록 -->
+        <typeAlias type="vo.member.MemberVo" alias="MemberVo"/>
+
     </typeAliases>
 <!--    DB에 연결 설정하기-->
     <environments default="oracleDev">
@@ -40,6 +66,18 @@
         형식 ) <mapper resource="경로명/파일명.xml"/>
         /Hyvva/res/mappers/ask-mapper.xml
     -->
-	<mapper resource="mappers/ask-mapper.xml"></mapper>  
+    <!-- 문의게시판 mapper 등록 -->
+	<mapper resource="mappers/ask-mapper.xml"></mapper>
+	
+	<!-- 게시판 mapper 등록 -->
+	<mapper resource="mappers/board-mapper.xml"/>
+	
+	<!-- 모임관련 mapper 등록 -->
+	<mapper resource="mappers/moim-mapper.xml"/>
+	<mapper resource="mappers/age-mapper.xml"/>
+	<mapper resource="mappers/area-mapper.xml"/>
+	
+	<!-- 회원관련 mapper 등록 -->
+	<mapper resource="mappers/member-mapper.xml"/>
     </mappers>
 </configuration>

@@ -1,17 +1,7 @@
-/admin/
-/board/
-/campaign/
 /config/
 /error/
 /file/
 /filter/
-/log4j.properties
-/login/
-/mappers/
-/member/
-/moim/
-/notice/
-/prod/
 /qna/
 /util/
 /vo/

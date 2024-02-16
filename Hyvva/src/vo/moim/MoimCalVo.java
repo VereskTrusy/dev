@@ -7,6 +7,30 @@ public class MoimCalVo {
 	private String cal_coment;
 	private String cal_date;
 	private String cal_del;
+	private String cal_place;
+	private String cal_addr1;
+	private String cal_addr2;
+	
+	
+	
+	public String getCal_place() {
+		return cal_place;
+	}
+	public void setCal_place(String cal_place) {
+		this.cal_place = cal_place;
+	}
+	public String getCal_addr1() {
+		return cal_addr1;
+	}
+	public void setCal_addr1(String cal_addr1) {
+		this.cal_addr1 = cal_addr1;
+	}
+	public String getCal_addr2() {
+		return cal_addr2;
+	}
+	public void setCal_addr2(String cal_addr2) {
+		this.cal_addr2 = cal_addr2;
+	}
 	public int getM_cal_no() {
 		return m_cal_no;
 	}

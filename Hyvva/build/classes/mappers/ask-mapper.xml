@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ask">
+
+	<!-- 동적쿼리  -->
+	<sql id="dynamicCondition">
+	   <where>
+	      <if test="!(searchGubun == '' or searchText == '')">
+	         ${searchGubun} like  '%'||#{searchText}||'%'
+	       </if>
+	   </where>
+	</sql>
+	
+	
+	
+	<!-- 테스트 - qna 리스트 조회 -->
+	<select id="selectDemoList" resultType="AskVo">
+		SELECT 
+              A.ASK_BOARD_NO
+            , A.USER_ID
+            , B.NICK_NAME
+            , A.ASK_BOARD_TITLE
+            , A.ASK_BOARD_COMMENT
+            , A.ASK_BOARD_DATE
+        FROM ASK A
+        INNER JOIN MEMBER B ON A.USER_ID = B.USER_ID
+        WHERE 1=1
+        ORDER BY A.ASK_BOARD_NO DESC
+	</select>
+	
+	
+	
+	<!-- 리스트 조회 -->
+	<select id="selectBoardList" parameterType="Map" resultType="AskVo">
+		SELECT A.* 
+		FROM(SELECT   
+		        ROWNUM AS RNUM
+		        , B.*
+		     FROM( SELECT 
+		                 A.ASK_BOARD_NO
+		               , A.USER_ID
+		               , B.NICK_NAME
+		               , A.ASK_BOARD_TITLE
+		               , A.ASK_BOARD_COMMENT
+		               , A.ASK_BOARD_DATE
+		           FROM ASK A
+		           INNER JOIN MEMBER B ON A.USER_ID = B.USER_ID
+		           WHERE 1=1
+					<if test="!(searchGubun == '' or searchText == '')">
+						AND ${searchGubun} like  '%'||#{searchText}||'%'
+					</if>
+		           ORDER BY A.ASK_BOARD_NO DESC ) B
+		     <![CDATA[ 
+		     WHERE ROWNUM <= ${endRecordNo}
+		) A
+		WHERE A.RNUM >= ${startRecordNo}
+		]]>
+	</select>
+	
+	
+	
+	<!-- 게시글 count 조회 -->
+	<select id="selectTotalCount" parameterType="PageVo" resultType="int">
+		SELECT COUNT(ASK_BOARD_NO) AS TOTALCOUNT
+		FROM ASK A
+		INNER JOIN MEMBER B ON A.USER_ID = B.USER_ID
+		WHERE 1=1
+		<if test="!(searchGubun == '' or searchText == '')">
+			AND ${searchGubun} like  '%'||#{searchText}||'%'
+		</if>
+	</select>
+	
+	
+	<!-- 게시글 상세조회 -->
+	<select id="selectDetail" parameterType="String" resultType="AskVo">
+		SELECT 
+			  A.ASK_BOARD_NO
+            , A.USER_ID
+            , B.NICK_NAME
+            , A.ASK_BOARD_TITLE
+            , A.ASK_BOARD_COMMENT
+            , A.ASK_BOARD_DATE
+        FROM ASK A
+        INNER JOIN MEMBER B ON A.USER_ID = B.USER_ID
+        WHERE 1=1 
+        AND A.ASK_BOARD_NO = #{ask_board_no}
+        
+	</select>
+	
+	
+	<!-- 닉네임 조회 -->
+	<select id="selectNickName" parameterType="String" resultType="AskVo">
+		SELECT 
+		      USER_ID
+		    , NICK_NAME
+		FROM MEMBER
+		WHERE 1=1
+		AND USER_ID = #{user_id}
+	</select>
+	
+	
+	<!-- 글작성 -->
+	<insert id="insertBoard" parameterType="AskVo">
+		INSERT INTO ASK (
+		      ASK_BOARD_NO
+		    , USER_ID
+		    , ASK_BOARD_TITLE
+		    , ASK_BOARD_COMMENT
+		    , ASK_BOARD_DATE
+		) VALUES ( 
+		      ASK_SEQ.NEXTVAL
+		    , #{user_id}
+		    , #{ask_board_title}
+		    , #{ask_board_comment}
+		    , SYSDATE
+		)
+	</insert>
+	
+	
+	
+	<!-- 글수정 -->
+	<update id="updateBoard" parameterType="AskVo">
+		UPDATE ASK SET
+		      ASK_BOARD_TITLE = #{ask_board_title}
+		    , ASK_BOARD_COMMENT = #{ask_board_comment}
+		WHERE 1=1
+		AND ASK_BOARD_NO = #{ask_board_no}
+	</update>
+	
+	
+	
+	<!-- 글 삭제기능은 문의게시판에 없음-->
+	
+</mapper>

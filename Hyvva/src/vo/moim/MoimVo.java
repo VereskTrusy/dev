@@ -4,7 +4,6 @@ public class MoimVo {
 	private int moim_id; 
 	private String age_id;
 	private String area_id;
-	private String moim_title;
 	private String moim_name;
 	private String moim_date;
 	private String moim_intro;
@@ -12,9 +11,7 @@ public class MoimVo {
 	private String m_img_name;
 	
 	
-	public MoimVo() {
-		
-	}
+
 	
 	
 	public String getM_img_name() {
@@ -26,14 +23,6 @@ public class MoimVo {
 		this.m_img_name = m_img_name;
 	}
 
-
-	public String getMoim_title() {
-		return moim_title;
-	}
-
-	public void setMoim_title(String moim_title) {
-		this.moim_title = moim_title;
-	}
 
 	public int getMoim_id() {
 		return moim_id;

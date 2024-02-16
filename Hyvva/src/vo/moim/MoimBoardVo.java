@@ -2,13 +2,13 @@ package vo.moim;
 
 public class MoimBoardVo {
 	private int m_board_no;
-	private int moim_id;
-	private String user_id;
-	private String m_board_title;
-	private String m_board_content;
-	private String m_board_date;
-	private int m_board_hits;
-	private String m_board_del;
+    private int moim_id;
+    private String user_id;
+    private String m_board_title;
+    private String m_board_content;
+    private String m_board_date;
+    private int m_board_hits;
+    private String m_board_del;
 	public int getM_board_no() {
 		return m_board_no;
 	}
@@ -57,6 +57,6 @@ public class MoimBoardVo {
 	public void setM_board_del(String m_board_del) {
 		this.m_board_del = m_board_del;
 	}
-	
-	
-}
+    
+    
+}           

@@ -22,7 +22,7 @@ public class QnaList extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// git test
+		
 		// 검색구분, 검색어, 현재페이지번호 파라미터로 받기
 		String searchGubun = "ask_board_title";
 		if(null != request.getParameter("searchGubun")) {
@@ -61,7 +61,7 @@ public class QnaList extends HttpServlet {
 		// 레코드 시작, 끝 번호 세팅
 		pageVo.recordNoRangeSetting();
 		
-		// 페이지 총갯수 세팅
+		// 페이지 총갯수 세팅 
 		pageVo.pageTotalCountSetting();
 		
 		// 페이지 정보 구하기

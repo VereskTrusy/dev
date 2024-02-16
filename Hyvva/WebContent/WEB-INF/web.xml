@@ -38,6 +38,6 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
-		<url-pattern></url-pattern>
+		<url-pattern>/qna/qnaWrite.do</url-pattern><!-- 문의작성 시 로그인 필요 -->
 	</filter-mapping>
 </web-app>
