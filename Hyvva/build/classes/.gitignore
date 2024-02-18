@@ -1,7 +1,12 @@
+/board/
 /config/
 /error/
 /file/
 /filter/
+/log4j.properties
+/mappers/
+/member/
+/moim/
 /qna/
 /util/
 /vo/
