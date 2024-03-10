@@ -28,4 +28,9 @@ public class ViewResolver {
 	public static String LoginView(String jspFileName) {
 		return "/WEB-INF/view/login/" + jspFileName;
 	}
+	
+	/* 메인 페이지 이동 */
+	public static String MainView(String jspFileName) {
+		return "/" + jspFileName;
+	}
 }

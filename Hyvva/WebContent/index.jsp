@@ -5,22 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- jquery-3.7.1.min.js 버전 사용 -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript">
+
+$(function(){
+	let contextPath = "<%=request.getContextPath()%>"; // 경로
+	
+	location.href = contextPath + "/main.do";
+});
+</script>
 </head>
 <body>
-	<a href="<%=request.getContextPath()%>/qna/qnaList.do"> 문의게시판 목록 보기 </a><br>
-	<a href="<%=request.getContextPath()%>/login.do"> 로그인 페이지 이동 요청 </a><br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
 </body>
 </html>
